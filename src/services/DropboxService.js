@@ -4,7 +4,7 @@ import {Dropbox} from 'dropbox';
 
 class DropboxService {
   constructor() {
-    this.dbx = new Dropbox({accessToken: 'u_XewBWc388AAAAAAAAHtkVeWznntpCj4ktrpiQ_LDSaqyQdw2-A78HPF57O4yLC'});
+    this.dbx = new Dropbox({accessToken: ''});
     window.dbx = this.dbx;
   }
 
