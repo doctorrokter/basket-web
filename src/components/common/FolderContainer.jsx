@@ -19,13 +19,13 @@ class FolderContainer extends PureComponent {
       let tag = entry['.tag'];
       let tabIndex = this.props.getTabIndex();
       if (tag === 'folder') {
-        return <RegularFile tabIndex={tabIndex} isFolder key={entry.id} file={entry} onClick={this.props.onFolderChosen.bind(null, entry.path_lower, entry.name)}/>
+        return <RegularFile onFocus={this.props.onFocus} tabIndex={tabIndex} isFolder key={entry.id} file={entry} onClick={this.props.onFolderChosen.bind(null, entry.path_lower, entry.name)}/>
       } else if (tag === 'file') {
         let ext = File.extension(entry.name);
         if (File.isImage(ext)) {
-          return <Thumbnail tabIndex={tabIndex} key={entry.id} path={entry.path_lower}/>;
+          return <Thumbnail onFocus={this.props.onFocus} tabIndex={tabIndex} key={entry.id} path={entry.path_lower}/>;
         } else {
-          return <RegularFile tabIndex={tabIndex} file={entry} key={entry.id}/>;
+          return <RegularFile onFocus={this.props.onFocus} tabIndex={tabIndex} file={entry} key={entry.id}/>;
         }
       }
     });
@@ -36,7 +36,8 @@ FolderContainer.propTypes = {
   entries: PropTypes.array,
   className: PropTypes.string,
   onFolderChosen: PropTypes.func,
-  getTabIndex: PropTypes.func
+  getTabIndex: PropTypes.func,
+  onFocus: PropTypes.func
 };
 
 FolderContainer.defaultProps = {

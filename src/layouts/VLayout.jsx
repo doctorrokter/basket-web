@@ -49,7 +49,7 @@ class VLayout extends AbstractLayout {
     }
 
     return (
-      <div tabIndex={this.props.tabIndex} className={`${this.getClassName()}v-layout`} style={style} onClick={this.props.onClick}>
+      <div className={`${this.getClassName()}v-layout`} style={style} onClick={this.props.onClick}>
         {this.props.children}
       </div>
     );
@@ -89,8 +89,7 @@ VLayout.propTypes = {
   ]),
   onClick: PropTypes.func,
   fillHeight: PropTypes.bool,
-  fillWidth: PropTypes.bool,
-  tabIndex: PropTypes.number
+  fillWidth: PropTypes.bool
 };
 
 VLayout.defaultProps = {

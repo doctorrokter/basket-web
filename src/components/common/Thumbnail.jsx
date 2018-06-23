@@ -25,7 +25,7 @@ class Thumbnail extends PureComponent {
 
   render() {
     return (
-      <div className="cell thumbnail" tabIndex={this.props.tabIndex}>
+      <div className="cell thumbnail" tabIndex={this.props.tabIndex} onFocus={this.props.onFocus.bind(null, this.props.tabIndex)}>
         {
           this.state.loaded ?
             <ImageView src={this.state.src}/> :
@@ -38,7 +38,8 @@ class Thumbnail extends PureComponent {
 
 Thumbnail.propTypes = {
   path: PropTypes.string,
-  tabIndex: PropTypes.number
+  tabIndex: PropTypes.number,
+  onFocus: PropTypes.func
 };
 
 export default Thumbnail;
