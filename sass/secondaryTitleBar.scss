@@ -12,6 +12,13 @@
     color: $text-on-primary;
     font-size: 1.5em;
     margin-right: $margin-15;
+    border-radius: 50px;
+    padding: 15px 25px;
+
+    &:focus {
+      outline: none;
+      background-color: $focus-color;
+    }
   }
 
   span {

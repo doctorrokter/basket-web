@@ -6,3 +6,5 @@ $secondary-primary-color: darken($primary-color, 20%);
 $text-on-primary: #ffffff;
 $text-secondary-on-primary: lighten($primary-background-color, 30%);
 $text-secondary-on-secondary: lighten($text-secondary-on-primary, 20%);
+
+$focus-color: #cf0652;

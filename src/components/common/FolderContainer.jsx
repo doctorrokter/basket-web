@@ -15,16 +15,17 @@ class FolderContainer extends PureComponent {
   }
 
   _renderBody = () => {
-    return this.props.entries.map((entry) => {
+    return this.props.entries.map((entry, index) => {
       let tag = entry['.tag'];
+      let tabIndex = this.props.getTabIndex();
       if (tag === 'folder') {
-        return <RegularFile isFolder key={entry.id} file={entry} onClick={this.props.onFolderChosen.bind(null, entry.path_lower, entry.name)}/>
+        return <RegularFile tabIndex={tabIndex} isFolder key={entry.id} file={entry} onClick={this.props.onFolderChosen.bind(null, entry.path_lower, entry.name)}/>
       } else if (tag === 'file') {
         let ext = File.extension(entry.name);
         if (File.isImage(ext)) {
-          return <Thumbnail key={entry.id} path={entry.path_lower}/>;
+          return <Thumbnail tabIndex={tabIndex} key={entry.id} path={entry.path_lower}/>;
         } else {
-          return <RegularFile file={entry} key={entry.id}/>;
+          return <RegularFile tabIndex={tabIndex} file={entry} key={entry.id}/>;
         }
       }
     });
@@ -34,7 +35,8 @@ class FolderContainer extends PureComponent {
 FolderContainer.propTypes = {
   entries: PropTypes.array,
   className: PropTypes.string,
-  onFolderChosen: PropTypes.func
+  onFolderChosen: PropTypes.func,
+  getTabIndex: PropTypes.func
 };
 
 FolderContainer.defaultProps = {

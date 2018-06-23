@@ -13,6 +13,8 @@ import PathModel from './models/PathModel';
 
 class App extends PureComponent {
 
+  tabIndex = 0;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -66,7 +68,7 @@ class App extends PureComponent {
                         spaceUsed={this.state.spaceUsage.used}
                         spaceAllocated={this.state.spaceUsage.allocated}/>
           <Breadcrumbs path={currPath.path}/>
-          <FolderContainer className="main-container" entries={currPath.list.entries} onFolderChosen={this._onFolderChosen}/>
+          <FolderContainer getTabIndex={this._getTabIndex} className="main-container" entries={currPath.list.entries} onFolderChosen={this._onFolderChosen}/>
           {this._renderSheets()}
         </div>
       );
@@ -74,6 +76,11 @@ class App extends PureComponent {
 
     return <Spinner text="Loading..."/>;
   }
+
+  _getTabIndex = () => {
+    this.tabIndex++;
+    return this.tabIndex;
+  };
 
   _closeSheet = () => {
     let paths = this.state.paths.slice();
@@ -94,7 +101,12 @@ class App extends PureComponent {
       this.state.paths.forEach((path, index) => {
         if (index !== 0) {
           let className = index === this.state.paths.length - 1 ? '' : 'scroll-off';
-          sheets.push(<Sheet className={className} key={`sheet_${index}`} hide={this._closeSheet} path={path} onFolderChosen={this._onFolderChosen}/>);
+          sheets.push(<Sheet className={className}
+                             key={`sheet_${index}`}
+                             hide={this._closeSheet}
+                             path={path}
+                             getTabIndex={this._getTabIndex}
+                             onFolderChosen={this._onFolderChosen}/>);
         }
       });
 

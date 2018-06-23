@@ -12,7 +12,8 @@ class RegularFile extends PureComponent {
     let type = File.fileType(file.name);
     let className = this.props.isFolder ? ' folder' : ` file ${type}`;
     return (
-      <VLayout vAlign={VLayout.vAlign.bottom}
+      <VLayout tabIndex={this.props.tabIndex}
+               vAlign={VLayout.vAlign.bottom}
                hAlign={VLayout.hAlign.left}
                className={`cell ${className}`}
                onClick={this.props.onClick}>
@@ -34,7 +35,8 @@ class RegularFile extends PureComponent {
 RegularFile.propTypes = {
   isFolder: PropTypes.bool,
   file: PropTypes.object.isRequired,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  tabIndex: PropTypes.number
 };
 
 RegularFile.defaultProps = {
