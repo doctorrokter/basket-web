@@ -1,0 +1,26 @@
+.cell {
+  box-sizing: border-box;
+  flex: 44% 0 0;
+  height: 250px;
+  margin: 15px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+@media (min-width: 768px) {
+  .cell {
+    flex: 29% 0 0;
+  }
+}
+@media (min-width: 992px) {
+  .cell {
+    flex: 21% 0 0;
+  }
+}
+@media (min-width: 1200px) {
+  .cell {
+    flex: 18% 0 0;
+  }
+}
+
+/*# sourceMappingURL=cell.css.map */

@@ -1,0 +1,41 @@
+@import "theme";
+@import "variables";
+
+body {
+  background: $primary-background-color;
+  color: $primary-color;
+  font-family: Helvetica;
+  margin: 0 auto;
+  letter-spacing: 0.1em;
+
+  @media (min-width: 1200px) {
+    letter-spacing: 0.15em;
+  }
+
+  .main-container {
+    margin-top: 90px;
+
+    @media (min-width: 1200px) {
+      margin-top: 150px;
+    }
+  }
+}
+
+.scroll-off {
+  overflow: hidden;
+}
+
+.hidden {
+  display: none;
+}
+
+@import "titleBar";
+@import "rootTitleBar";
+@import "secondaryTitleBar";
+@import "breadcrumbs";
+@import "thumbnail";
+@import "imgeView";
+@import "spinner";
+@import "sheet";
+@import "cell";
+@import "file";

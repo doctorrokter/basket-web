@@ -1,0 +1,38 @@
+@import "variables";
+@import "theme";
+
+.cell {
+  box-sizing: border-box;
+  flex: 30% 0 0;
+  height: 150px;
+  margin: $margin-5;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  color: #ffffff;
+  position: relative;
+  //z-index: -1;
+
+  @media (min-width: 768px) {
+    flex: 29% 0 0;
+  }
+
+  @media (min-width: 992px) {
+    flex: 21% 0 0;
+  }
+
+  @media (min-width: 1200px) {
+    flex: 18% 0 0;
+    margin: $margin-15;
+    height: 250px;
+  }
+
+  i.file-type {
+    position: absolute;
+    top: 30%;
+    align-self: center;
+    font-size: 5em;
+    color: $text-secondary-on-primary;
+    //z-index: -1;
+  }
+}

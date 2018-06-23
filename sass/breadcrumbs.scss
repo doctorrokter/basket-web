@@ -1,0 +1,19 @@
+@import "variables";
+@import "theme";
+
+.breadcrumbs {
+  position: fixed;
+  background: $secondary-primary-background-color;
+  width: 100%;
+  box-sizing: border-box;
+  padding: $padding-5;
+  color: $text-secondary-on-secondary;
+  top: 60px;
+  opacity: 0.9;
+  z-index: 1;
+
+  @media (min-width: 1200px) {
+    top: 110px;
+    padding: $padding-10;
+  }
+}

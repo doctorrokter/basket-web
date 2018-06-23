@@ -1,0 +1,8 @@
+$primary-color: #4AD0EC;
+$primary-background-color: #262626;
+$secondary-primary-background-color: lighten($primary-background-color, 5%);
+$secondary-primary-color: darken($primary-color, 20%);
+
+$text-on-primary: #ffffff;
+$text-secondary-on-primary: lighten($primary-background-color, 30%);
+$text-secondary-on-secondary: lighten($text-secondary-on-primary, 20%);

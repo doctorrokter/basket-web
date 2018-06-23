@@ -1,0 +1,22 @@
+@import "theme";
+@import "variables";
+
+.title-bar {
+  border-bottom: 2px solid $primary-color;
+  background-color: $primary-background-color;
+  padding: $padding-5;
+  color: $text-on-primary;
+  font-size: 0.8em;
+  position: fixed;
+  top: 0;
+  box-sizing: border-box;
+  height: 60px;
+  z-index: 1;
+
+  @media (min-width: 1200px) {
+    height: 110px;
+    font-size: 1.5em;
+    padding: $padding-15;
+    border-bottom: 4px solid $primary-color;
+  }
+}
