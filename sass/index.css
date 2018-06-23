@@ -37,7 +37,7 @@ body .main-container {
   top: 0;
   box-sizing: border-box;
   height: 60px;
-  z-index: 1;
+  z-index: 2;
 }
 @media (min-width: 1200px) {
   .title-bar {
@@ -107,7 +107,7 @@ body .main-container {
   height: 100vh;
   background-color: #262626;
   overflow: auto;
-  z-index: 1;
+  z-index: 2;
 }
 .sheet.animated {
   -webkit-animation-duration: 0.3s;

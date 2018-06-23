@@ -43,6 +43,17 @@ class App extends PureComponent {
         ],
         loaded: true
       }));
+
+    window.addEventListener('keydown', (e) => {
+      let keyCode = e.keyCode;
+      if (keyCode === 461) {
+        let backBtns = document.querySelectorAll('.back-btn');
+        if (backBtns.length > 0) {
+          let lastBtn = backBtns[backBtns.length - 1];
+          lastBtn.click();
+        }
+      }
+    });
   }
 
   render() {
