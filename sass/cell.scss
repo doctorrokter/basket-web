@@ -3,9 +3,9 @@
 
 .cell {
   box-sizing: border-box;
-  flex: 30% 0 0;
+  flex: 47% 0 0;
   height: 150px;
-  margin: $margin-5;
+  margin: $margin-5 0 $margin-5 2%;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -13,16 +13,16 @@
   position: relative;
 
   @media (min-width: 768px) {
-    flex: 29% 0 0;
+    flex: 30.6% 0 0;
   }
 
   @media (min-width: 992px) {
-    flex: 21% 0 0;
+    flex: 22.5% 0 0;
   }
 
   @media (min-width: 1200px) {
-    flex: 18% 0 0;
-    margin: $margin-15;
+    flex: 17.6% 0 0;
+    margin: $margin-15 0 $margin-15 2%;
     height: 250px;
   }
 

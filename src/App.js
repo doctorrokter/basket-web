@@ -49,7 +49,7 @@ class App extends PureComponent {
     if (this.state.loaded) {
       let currPath = this.state.paths[0];
       return (
-        <div>
+        <React.Fragment>
           <RootTitleBar email={this.state.user.email}
                         username={this.state.user.displayName}
                         spaceUsed={this.state.spaceUsage.used}
@@ -61,7 +61,7 @@ class App extends PureComponent {
                            entries={currPath.list.entries}
                            onFolderChosen={this._onFolderChosen}/>
           {this._renderSheets()}
-        </div>
+        </React.Fragment>
       );
     }
 

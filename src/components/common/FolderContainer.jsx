@@ -8,7 +8,7 @@ import RegularFile from './RegularFile';
 class FolderContainer extends PureComponent {
   render() {
     return (
-      <HLayout className={this.props.className} wrap={HLayout.wrap.wrap} hAlign={HLayout.hAlign.center}>
+      <HLayout className={this.props.className} wrap={HLayout.wrap.wrap} hAlign={HLayout.hAlign.left}>
         {this._renderBody()}
       </HLayout>
     );

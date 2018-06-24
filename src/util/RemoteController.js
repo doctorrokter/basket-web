@@ -84,11 +84,8 @@ class RemoteController {
   }
 
   initFirst() {
-    let t = setTimeout(() => {
-      this.setCurrentTabIndex(1);
-      this.focus();
-      clearTimeout(t);
-    }, 1000);
+    this.setCurrentTabIndex(1);
+    this.focus();
   }
 }
 

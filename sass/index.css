@@ -124,9 +124,9 @@ body .main-container {
 
 .cell {
   box-sizing: border-box;
-  flex: 30% 0 0;
+  flex: 47% 0 0;
   height: 150px;
-  margin: 5px;
+  margin: 5px 0 5px 2%;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -135,18 +135,18 @@ body .main-container {
 }
 @media (min-width: 768px) {
   .cell {
-    flex: 29% 0 0;
+    flex: 30.6% 0 0;
   }
 }
 @media (min-width: 992px) {
   .cell {
-    flex: 21% 0 0;
+    flex: 22.5% 0 0;
   }
 }
 @media (min-width: 1200px) {
   .cell {
-    flex: 18% 0 0;
-    margin: 15px;
+    flex: 17.6% 0 0;
+    margin: 15px 0 15px 2%;
     height: 250px;
   }
 }
