@@ -23,10 +23,18 @@ class RemoteController {
   }
 
   getTabIndex() {
-    return _currentTabIndex;
+    return _tabIndex;
   }
 
   setTabIndex(tabIndex) {
+    _tabIndex = tabIndex;
+  }
+
+  getCurrentTabIndex() {
+    return _currentTabIndex;
+  }
+
+  setCurrentTabIndex(tabIndex) {
     _currentTabIndex = tabIndex;
   }
 
@@ -77,7 +85,7 @@ class RemoteController {
 
   initFirst() {
     let t = setTimeout(() => {
-      this.setTabIndex(1);
+      this.setCurrentTabIndex(1);
       this.focus();
       clearTimeout(t);
     }, 1000);

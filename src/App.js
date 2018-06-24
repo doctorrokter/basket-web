@@ -55,7 +55,7 @@ class App extends PureComponent {
                         spaceUsed={this.state.spaceUsage.used}
                         spaceAllocated={this.state.spaceUsage.allocated}/>
           <Breadcrumbs path={currPath.path}/>
-          <FolderContainer onFocus={controller.setTabIndex}
+          <FolderContainer onFocus={controller.setCurrentTabIndex}
                            getTabIndex={controller.nextTabIndex}
                            className="main-container"
                            entries={currPath.list.entries}
@@ -90,7 +90,7 @@ class App extends PureComponent {
         if (index !== 0) {
           let className = index === this.state.paths.length - 1 ? '' : 'scroll-off';
           sheets.push(<Sheet className={className}
-                             onFocus={controller.setTabIndex}
+                             onFocus={controller.setCurrentTabIndex}
                              key={`sheet_${index}`}
                              hide={this._closeSheet}
                              path={path}

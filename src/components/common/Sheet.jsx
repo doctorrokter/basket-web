@@ -38,13 +38,17 @@ class Sheet extends PureComponent {
           .then((data) => {
             let path = new PathModel(this.state.path.path, this.state.path.name, data);
             this.maxTabIndex = this.minTabIndex + path.list.entries.length;
-            controller.setTabIndex(this.minTabIndex);
+            controller.setCurrentTabIndex(this.minTabIndex);
             controller.focus();
             this.setState({path: path, loaded: true});
           });
       });
       clearTimeout(t);
     }, 0);
+  }
+
+  componentWillUnmount() {
+    controller.setTabIndex(controller.getTabIndex() - (this.maxTabIndex - this.minTabIndex) - 1);
   }
 
   render() {
