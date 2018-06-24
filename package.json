@@ -23,6 +23,7 @@
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
     "cross-env": "^5.1.1",
     "react": "^16.2.0",
     "react-tv": "^0.4.0",

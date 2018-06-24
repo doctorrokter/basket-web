@@ -1,6 +1,7 @@
 'use strict';
 
 import {Dropbox} from 'dropbox';
+import PathModel from '../models/PathModel';
 
 class DropboxService {
   constructor() {
@@ -39,6 +40,24 @@ class DropboxService {
     return this.dbx.filesGetThumbnail({path: path, size: 'w480h320'})
       .then((data) => {
         return data;
+      });
+  }
+
+  loadInitialData() {
+    return Promise.all([
+      this.getUser(),
+      this.getSpaceUsage(),
+      this.listFolder('')
+    ])
+      .then((values) => {
+        return {
+          user: values[0],
+          spaceUsage: values[1],
+          paths: [
+            new PathModel('', '', values[2])
+          ],
+          loaded: true
+        }
       });
   }
 }

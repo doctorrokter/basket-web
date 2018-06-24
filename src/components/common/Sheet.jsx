@@ -56,6 +56,7 @@ class Sheet extends PureComponent {
         <SecondaryTitleBar title={path ? path.name : ''} onBack={this._close} getTabIndex={this.props.getTabIndex}/>
         {path && <Breadcrumbs path={path.path}/>}
         <FolderContainer className="main-container" entries={path.list.entries}
+                         onFocus={this.props.onFocus}
                          getTabIndex={this.props.getTabIndex}
                          onFolderChosen={this.props.onFolderChosen}/>
         {
@@ -82,7 +83,8 @@ Sheet.propTypes = {
   path: PropTypes.instanceOf(PathModel),
   onFolderChosen: PropTypes.func,
   tabIndexPrefix: PropTypes.number,
-  getTabIndex: PropTypes.func
+  getTabIndex: PropTypes.func,
+  onFocus: PropTypes.func.isRequired
 };
 
 Sheet.defaultProps = {

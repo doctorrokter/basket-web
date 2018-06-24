@@ -10,10 +10,9 @@ import FolderContainer from './components/common/FolderContainer';
 import Spinner from './components/common/Spinner';
 import Sheet from './components/common/Sheet';
 import PathModel from './models/PathModel';
+import controller from './util/RemoteController';
 
 class App extends PureComponent {
-
-  tabIndex = 0;
 
   constructor(props) {
     super(props);
@@ -32,49 +31,18 @@ class App extends PureComponent {
   }
 
   componentDidMount() {
-    Promise.all([
-      DropboxService.getUser(),
-      DropboxService.getSpaceUsage(),
-      DropboxService.listFolder(this.state.paths[0].path)
-    ])
-      .then((values) => this.setState({
-        user: values[0],
-        spaceUsage: values[1],
-        paths: [
-          new PathModel('', '', values[2])
-        ],
-        loaded: true
-      }));
-
     window.addEventListener('keydown', (e) => {
       let keyCode = e.keyCode;
       console.log(keyCode);
-      if (keyCode === 461) {
-        let backBtns = document.querySelectorAll('.back-btn');
-        if (backBtns.length > 0) {
-          let lastBtn = backBtns[backBtns.length - 1];
-          lastBtn.click();
-        }
-      } else if (keyCode === 39) {
-        this.tabIndex++;
-        document.querySelector(`[tabindex="${this.tabIndex}"]`).focus();
-      } else if (keyCode === 37) {
-        this.tabIndex--;
-        document.querySelector(`[tabindex="${this.tabIndex}"]`).focus();
-      } else if (keyCode === 40) {
-        this.tabIndex += 5;
-        document.querySelector(`[tabindex="${this.tabIndex}"]`).focus();
-      } else if (keyCode === 38) {
-        this.tabIndex -= 5;
-        document.querySelector(`[tabindex="${this.tabIndex}"]`).focus();
-      }
+      controller.handleKeyPress(keyCode);
     });
 
-    let t = setTimeout(() => {
-      this.tabIndex = 1;
-      document.querySelector(`[tabindex="${this.tabIndex}"]`).focus();
-      clearTimeout(t);
-    }, 1000);
+    DropboxService.loadInitialData()
+      .then((data) => {
+        this.setState({...data}, () => {
+          controller.initFirst();
+        });
+      })
   }
 
   render() {
@@ -87,7 +55,11 @@ class App extends PureComponent {
                         spaceUsed={this.state.spaceUsage.used}
                         spaceAllocated={this.state.spaceUsage.allocated}/>
           <Breadcrumbs path={currPath.path}/>
-          <FolderContainer onFocus={this._onFocus} getTabIndex={this._getTabIndex} className="main-container" entries={currPath.list.entries} onFolderChosen={this._onFolderChosen}/>
+          <FolderContainer onFocus={controller.setTabIndex}
+                           getTabIndex={controller.nextTabIndex}
+                           className="main-container"
+                           entries={currPath.list.entries}
+                           onFolderChosen={this._onFolderChosen}/>
           {this._renderSheets()}
         </div>
       );
@@ -95,16 +67,6 @@ class App extends PureComponent {
 
     return <Spinner text="Loading..."/>;
   }
-
-  _onFocus = (tabIndex) => {
-    console.log(tabIndex);
-    this.tabIndex = tabIndex;
-  };
-
-  _getTabIndex = () => {
-    this.tabIndex++;
-    return this.tabIndex;
-  };
 
   _closeSheet = () => {
     let paths = this.state.paths.slice();
@@ -126,10 +88,11 @@ class App extends PureComponent {
         if (index !== 0) {
           let className = index === this.state.paths.length - 1 ? '' : 'scroll-off';
           sheets.push(<Sheet className={className}
+                             onFocus={controller.setTabIndex}
                              key={`sheet_${index}`}
                              hide={this._closeSheet}
                              path={path}
-                             getTabIndex={this._getTabIndex}
+                             getTabIndex={controller.nextTabIndex}
                              onFolderChosen={this._onFolderChosen}/>);
         }
       });
