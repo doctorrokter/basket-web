@@ -7,6 +7,7 @@ import PathModel from '../../models/PathModel';
 import FolderContainer from './FolderContainer';
 import DropboxService from '../../services/DropboxService';
 import Spinner from './Spinner';
+import controller from '../../util/RemoteController';
 
 const transitionsClassNamesMap = new Map();
 transitionsClassNamesMap.set('exited', 'hidden');
@@ -17,6 +18,8 @@ transitionsClassNamesMap.set('entered', '');
 class Sheet extends PureComponent {
 
   timeout = 500;
+  minTabIndex = 0;
+  maxTabIndex = 0;
 
   constructor(props) {
     super(props);
@@ -25,6 +28,7 @@ class Sheet extends PureComponent {
       path: props.path,
       loaded: false
     };
+    this.minTabIndex = controller.nextTabIndex();
   }
 
   componentDidMount() {
@@ -32,7 +36,11 @@ class Sheet extends PureComponent {
       this.setState({opened: true}, () => {
         DropboxService.listFolder(this.state.path.path)
           .then((data) => {
-            this.setState({path: new PathModel(this.state.path.path, this.state.path.name, data), loaded: true});
+            let path = new PathModel(this.state.path.path, this.state.path.name, data);
+            this.maxTabIndex = this.minTabIndex + path.list.entries.length;
+            controller.setTabIndex(this.minTabIndex);
+            controller.focus();
+            this.setState({path: path, loaded: true});
           });
       });
       clearTimeout(t);
@@ -53,9 +61,10 @@ class Sheet extends PureComponent {
     let path = this.state.path;
     return (
       <div className={`sheet ${this.props.className} ${className}`}>
-        <SecondaryTitleBar title={path ? path.name : ''} onBack={this._close} getTabIndex={this.props.getTabIndex}/>
+        <SecondaryTitleBar title={path ? path.name : ''} onBack={this._close} tabIndex={this.minTabIndex}/>
         {path && <Breadcrumbs path={path.path}/>}
-        <FolderContainer className="main-container" entries={path.list.entries}
+        <FolderContainer className="main-container"
+                         entries={path.list.entries}
                          onFocus={this.props.onFocus}
                          getTabIndex={this.props.getTabIndex}
                          onFolderChosen={this.props.onFolderChosen}/>
@@ -82,7 +91,6 @@ Sheet.propTypes = {
   className: PropTypes.string,
   path: PropTypes.instanceOf(PathModel),
   onFolderChosen: PropTypes.func,
-  tabIndexPrefix: PropTypes.number,
   getTabIndex: PropTypes.func,
   onFocus: PropTypes.func.isRequired
 };

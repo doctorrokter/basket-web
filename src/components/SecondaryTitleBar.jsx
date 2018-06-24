@@ -12,7 +12,7 @@ class SecondaryTitleBar extends PureComponent {
           <HLayout vAlign={HLayout.vAlign.center}>
             {
               this.props.onBack &&
-              <button className="back-btn" type="button" onClick={this.props.onBack} tabIndex={this.props.getTabIndex()}>
+              <button className="back-btn" type="button" onClick={this.props.onBack} tabIndex={this.props.tabIndex}>
                 <i className="fas fa-chevron-left"/>
               </button>
             }
@@ -37,14 +37,13 @@ SecondaryTitleBar.propTypes = {
   title: PropTypes.string,
   subtitle: PropTypes.string,
   onBack: PropTypes.func,
-  getTabIndex: PropTypes.func
+  tabIndex: PropTypes.number
 };
 
 SecondaryTitleBar.defaultProps = {
   title: '',
   subtitle: '',
-  onBack: null,
-  tabIndexPrefix: 1
+  onBack: null
 };
 
 export default SecondaryTitleBar;

@@ -70,8 +70,10 @@ class App extends PureComponent {
 
   _closeSheet = () => {
     let paths = this.state.paths.slice();
-    paths.pop();
-    this.setState({paths: paths});
+    if (paths.length > 1) {
+      paths.pop();
+      this.setState({paths: paths});
+    }
   };
 
   _onFolderChosen = (path, name) => {
