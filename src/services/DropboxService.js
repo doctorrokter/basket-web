@@ -2,6 +2,7 @@
 
 import {Dropbox} from 'dropbox';
 import PathModel from '../models/PathModel';
+import cache from './CacheService';
 
 class DropboxService {
   constructor() {
@@ -30,15 +31,25 @@ class DropboxService {
   }
 
   listFolder(path) {
+    if (cache.has(path)) {
+      return Promise.resolve(cache.find(path));
+    }
+
     return this.dbx.filesListFolder({path: path})
       .then((data) => {
+        cache.put(path, data);
         return data;
       });
   }
 
   getThumbnail(path) {
+    if (cache.has(path)) {
+      return Promise.resolve(cache.find(path));
+    }
+
     return this.dbx.filesGetThumbnail({path: path, size: 'w480h320'})
       .then((data) => {
+        cache.put(path, data);
         return data;
       });
   }

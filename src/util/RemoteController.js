@@ -84,7 +84,7 @@ class RemoteController {
   }
 
   initFirst() {
-    this.setCurrentTabIndex(1);
+    this.setCurrentTabIndex(2);
     this.focus();
   }
 }

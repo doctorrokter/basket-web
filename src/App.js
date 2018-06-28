@@ -5,6 +5,7 @@ import 'es6-promise';
 
 import DropboxService from './services/DropboxService';
 import RootTitleBar from './components/RootTitleBar';
+import SecondaryTitleBar from './components/SecondaryTitleBar';
 import Breadcrumbs from './components/Breadcrumbs';
 import FolderContainer from './components/common/FolderContainer';
 import Spinner from './components/common/Spinner';
@@ -48,19 +49,19 @@ class App extends PureComponent {
   render() {
     if (this.state.loaded) {
       let currPath = this.state.paths[0];
+
+      if (this.state.paths.length > 1) {
+        currPath = this.state.paths[this.state.paths.length - 1];
+      }
+
       return (
         <React.Fragment>
-          <RootTitleBar email={this.state.user.email}
-                        username={this.state.user.displayName}
-                        spaceUsed={this.state.spaceUsage.used}
-                        spaceAllocated={this.state.spaceUsage.allocated}/>
+          {this._renderTitleBar()}
           <Breadcrumbs path={currPath.path}/>
           <FolderContainer onFocus={controller.setCurrentTabIndex}
-                           getTabIndex={controller.nextTabIndex}
                            className="main-container"
                            entries={currPath.list.entries}
                            onFolderChosen={this._onFolderChosen}/>
-          {this._renderSheets()}
         </React.Fragment>
       );
     }
@@ -68,18 +69,43 @@ class App extends PureComponent {
     return <Spinner text="Loading..."/>;
   }
 
+  _renderTitleBar = () => {
+    if (this.state.paths.length > 1) {
+      let currPath = this.state.paths[this.state.paths.length - 1];
+      return <SecondaryTitleBar title={currPath.name} onBack={this._closeSheet} tabIndex={1}/>;
+    }
+
+    return <RootTitleBar email={this.state.user.email}
+                         username={this.state.user.displayName}
+                         spaceUsed={this.state.spaceUsage.used}
+                         spaceAllocated={this.state.spaceUsage.allocated}/>;
+  };
+
   _closeSheet = () => {
     let paths = this.state.paths.slice();
     if (paths.length > 1) {
       paths.pop();
       this.setState({paths: paths});
+      controller.initFirst();
     }
   };
 
   _onFolderChosen = (path, name) => {
-    let paths = this.state.paths.slice();
-    paths.push(new PathModel(path, name));
-    this.setState({paths: paths});
+    this.setState({loaded: false}, () => {
+      let paths = this.state.paths.slice();
+      let pathModel = new PathModel(path, name);
+      paths.push(pathModel);
+
+      this.setState({paths: paths, loaded: true}, () => {
+        DropboxService.listFolder(pathModel.path)
+          .then((data) => {
+            pathModel.list = data;
+            let newPaths = this.state.paths.slice();
+            this.setState({paths: newPaths});
+            controller.initFirst();
+          })
+      });
+    });
   };
 
   _renderSheets = () => {
